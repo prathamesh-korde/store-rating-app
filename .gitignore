@@ -1,0 +1,58 @@
+# ════════════════════════════════════════════════════════════
+#  ROOT .gitignore - Store Rating App
+# ════════════════════════════════════════════════════════════
+
+# ─── CRITICAL: Never commit .env files ───────────────────────
+**/.env
+**/.env.local
+**/.env.*.local
+**/.env.production
+**/.env.staging
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# ─── Dependencies ─────────────────────────────────────────────
+**/node_modules/
+.pnp
+.pnp.js
+
+# ─── Build Output ─────────────────────────────────────────────
+**/dist/
+**/build/
+**/out/
+
+# ─── Vite / Webpack cache ─────────────────────────────────────
+**/.vite/
+**/.cache/
+
+# ─── Testing ──────────────────────────────────────────────────
+**/coverage/
+**/.nyc_output/
+
+# ─── Logs ─────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ─── OS Files ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.pem
+
+# ─── Editor ───────────────────────────────────────────────────
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.suo
+*.sw?
+*.njsproj
+*.sln
+
+# ─── Misc ─────────────────────────────────────────────────────
+*.eslintcache
+*.tsbuildinfo

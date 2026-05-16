@@ -1,0 +1,16 @@
+# ─── Environment Variables (NEVER commit these) ──────────────
+.env
+.env.local
+.env.*.local
+.env.production
+
+# ─── Dependencies ─────────────────────────────────────────────
+node_modules/
+
+# ─── Logs ─────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+
+# ─── OS Files ─────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
