@@ -20,12 +20,33 @@ const app = express();
 // ── Security Middleware ──────────────────────────────────────
 app.use(helmet());
 
-app.use(cors({
-  origin: env.CLIENT_ORIGIN,
+// ── Dynamic CORS origin list ─────────────────────────────────
+// Accepts: the configured CLIENT_ORIGIN, all *.vercel.app previews, and localhost
+const allowedOrigins = [
+  env.CLIENT_ORIGIN,
+  'http://localhost:5173',
+  'http://localhost:3000',
+].filter(Boolean);
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (curl, Render health checks, mobile)
+    if (!origin) return callback(null, true);
+    // Allow any vercel.app subdomain (covers preview deployments too)
+    if (/\.vercel\.app$/.test(origin)) return callback(null, true);
+    // Allow onrender.com for internal calls
+    if (/\.onrender\.com$/.test(origin)) return callback(null, true);
+    // Allow explicitly listed origins
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS: origin ${origin} is not allowed`));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Pre-flight for all routes
 
 // Rate limit auth login
 const loginLimiter = rateLimit({
