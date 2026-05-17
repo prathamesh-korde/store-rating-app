@@ -4,6 +4,15 @@ A complete, production-ready web application that allows users to discover, rate
 
 ---
 
+## 🚀 Live Demo
+
+- **Frontend (Vercel)**: [https://store-rating-app-39o2.vercel.app](https://store-rating-app-39o2.vercel.app)
+- **Backend (Render)**: [https://store-rating-app-l9nw.onrender.com/health](https://store-rating-app-l9nw.onrender.com/health)
+
+*(Note: The backend is hosted on Render's free tier. It spins down after 15 minutes of inactivity, so the first request may take up to 50 seconds to wake the server up.)*
+
+---
+
 ## Tech Stack
 
 | Layer       | Technology                            |
@@ -11,7 +20,7 @@ A complete, production-ready web application that allows users to discover, rate
 | Backend     | Node.js + Express.js                  |
 | Database    | PostgreSQL (raw `pg` driver)          |
 | Frontend    | React 18 + Vite                       |
-| Auth        | JWT (httpOnly cookie)                 |
+| Auth        | JWT (Bearer Token in Session Storage) |
 | Styling     | Tailwind CSS v3 + Custom CSS          |
 | Validation  | Joi (backend) + Zod + React Hook Form |
 | HTTP Client | Axios with interceptors               |
@@ -197,8 +206,8 @@ store-rating-app/
 ## Security
 
 - Passwords hashed with bcryptjs (12 salt rounds)
-- JWT stored in httpOnly, SameSite=Lax cookie
+- JWT passed via Authorization Header as Bearer token (supports cross-domain deployments)
 - Parameterised SQL queries throughout (no string concatenation)
 - Helmet.js security headers
-- CORS restricted to frontend origin
-- Rate limiting: 10 login requests per 15 minutes per IP
+- Dynamic CORS restricted to trusted frontend origins
+- Rate limiting: 50 login requests per 15 minutes per IP
