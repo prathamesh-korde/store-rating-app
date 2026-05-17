@@ -46,8 +46,9 @@ export function AuthProvider({ children }) {
 
   const login = async (credentials) => {
     const res = await authApi.login(credentials);
-    const user = res.data.data.user;
+    const { user, token } = res.data.data;
     sessionStorage.setItem('auth_user', JSON.stringify(user));
+    sessionStorage.setItem('auth_token', token);
     dispatch({ type: 'SET_USER', payload: user });
     return user;
   };
@@ -57,6 +58,7 @@ export function AuthProvider({ children }) {
       await authApi.logout();
     } finally {
       sessionStorage.removeItem('auth_user');
+      sessionStorage.removeItem('auth_token');
       dispatch({ type: 'CLEAR_USER' });
     }
   };
