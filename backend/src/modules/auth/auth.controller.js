@@ -52,7 +52,7 @@ const changePasswordSchema = Joi.object({
 const COOKIE_OPTIONS = {
   httpOnly: true,
   secure: env.NODE_ENV === 'production',
-  sameSite: env.NODE_ENV === 'production' ? 'Strict' : 'Lax',
+  sameSite: env.NODE_ENV === 'production' ? 'None' : 'Lax',
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
 };
 
